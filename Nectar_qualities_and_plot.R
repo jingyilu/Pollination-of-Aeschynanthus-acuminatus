@@ -21,17 +21,42 @@ Nectar_crop <-   Nectar_data %>%
 # Secretion Patterns
 Nectar_secretion %>%
   summary()
+## SE of volume
+Nectar_secretion %>%
+  summarySE(measurevar = "Volume")
+Nectar_secretion %>%
+  summarySE(measurevar = "Volume", groupvars = "T")
+## test for volume among time
+t.test(Volume~as.factor(T), data = Nectar_secretion)
+## SE of concentration
+Nectar_secretion %>% 
+  summarySE(measurevar = "Concentration")
+## test for concentration among time
+t.test(Concentration~as.factor(T), data = Nectar_secretion)
+
 levene_test_secretion <- leveneTest(Volume ~ as.factor(T), data = Nectar_secretion)
 anova_test_secretion <- aov(Volume ~ as.factor(T), data = Nectar_secretion)
 summary(anova_test_secretion)
+TukeyHSD(anova_test_secretion)
 
 # Standing crop
 Nectar_crop %>%
   summary()
-
+## SE of volume
+Nectar_crop %>% 
+  summarySE(measurevar = "Volume")
+## test for volume among time
 levene_test_crop <- leveneTest(Volume ~ as.factor(T), data = Nectar_crop)
 anova_test_crop <- aov(Volume ~ as.factor(T), data = Nectar_crop)
 summary(anova_test_crop)
+## Post-hoc comparisons
+TukeyHSD(anova_test_crop)
+## SE of concentration
+Nectar_crop %>% 
+  summarySE(measurevar = "Concentration")
+## test for concentration among time
+aov(Concentration~as.factor(T), data = Nectar_crop) %>%
+  summary()
 
 ## PLOTIING
 # Compute SE for plotting
