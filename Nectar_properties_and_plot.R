@@ -46,15 +46,16 @@ Nectar_crop %>%
 Nectar_crop %>% 
   summarySE(measurevar = "Volume")
 ## test for volume among time
-levene_test_crop <- leveneTest(Volume ~ as.factor(T), data = Nectar_crop)
-anova_test_crop <- aov(Volume ~ as.factor(T), data = Nectar_crop)
-summary(anova_test_crop)
+levene_test_crop_volume <- leveneTest(Volume ~ as.factor(T), data = Nectar_crop)
+anova_test_crop_volume <- aov(Volume ~ as.factor(T), data = Nectar_crop)
+summary(anova_test_crop_volume)
 ## Post-hoc comparisons
-TukeyHSD(anova_test_crop)
+TukeyHSD(anova_test_crop_volume)
 ## SE of concentration
 Nectar_crop %>% 
   summarySE(measurevar = "Concentration")
 ## test for concentration among time
+levene_test_crop_concentration <- leveneTest(Concentration ~ as.factor(T), data = Nectar_crop)
 aov(Concentration~as.factor(T), data = Nectar_crop) %>%
   summary()
 
