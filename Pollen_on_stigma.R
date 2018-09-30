@@ -5,6 +5,12 @@ library(tidyverse)
 # Retrieve SEM stigma pollen counts data
 Pollen_counts <- read.csv("Data/SEM_record.csv", header = TRUE)
 
+# Total percentages
+Percentage_species <- Pollen_counts %>%
+  summarise(per_Aeschynanthus = sum(Aeschynanthus)/(sum(Aeschynanthus) + sum(Prunus) + sum(Machilus)),
+            per_Prunus = sum(Prunus)/(sum(Aeschynanthus) + sum(Prunus) + sum(Machilus)),
+            per_Machilus = sum(Machilus)/(sum(Aeschynanthus) + sum(Prunus) + sum(Machilus)))
+
 # Calculate pollen counts per stigma
 Pollen_per_stigma <- Pollen_counts %>%
   group_by(Stigma) %>%
