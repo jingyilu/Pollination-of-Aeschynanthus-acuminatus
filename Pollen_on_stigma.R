@@ -36,8 +36,8 @@ Figure_2_b <- Stat_pollen_per_stigma %>%
 gray_scale <- c("#4d4d4d", "#b3b3b3", "#7f7f7f")
 
 Figure_2_b <- Figure_2_b +
-  theme(panel.background = element_blank(), text=element_text(family = 'Times'),
-      axis.text=element_text(size=7), axis.title=element_text(size=10,face="bold"),
+  theme(panel.background = element_blank(), text=element_text(family = 'sans'),
+      axis.text=element_text(size=7), axis.title=element_text(size=9,face="bold"),
       axis.line.y.left = element_line(color="black", size = 0.25),
       legend.position="none") +
   scale_y_continuous(name = "Numbers of pollen grains per microscope field",
@@ -48,4 +48,18 @@ Figure_2_b <- Figure_2_b +
                             expression(italic("Prunus")))) +
   scale_fill_manual(values = gray_scale)
 ggsave("Figure2b.pdf", dpi = 300, height = 8.4, width =8.4, units = "cm")  
+
+
+## Additional Visualization
+# Stripchart
+Pollen_stripchart <- Pollen_per_stigma %>%
+  ggplot((aes(x = Species, y = Count_per_stigma, colour = factor(Stigma)))) +
+  geom_jitter(position=position_jitter(0.2)) +
+  stat_summary(geom="pointrange", color="black") +
+  theme(panel.background = element_blank(), text=element_text(family = 'sans'),
+        axis.text=element_text(size=7), axis.title=element_text(size=10,face="bold"),
+        axis.line.y.left = element_line(color="black", size = 0.25), 
+        legend.key=element_rect(fill=NA)) + 
+  scale_color_discrete(name = "Stigma ID") +
+  ylab("Numbers of pollen grains per microscope field")
 
