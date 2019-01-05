@@ -79,29 +79,29 @@ Plotting_SE <- inner_join(volume_crop_SE,
 # Plot volume of standing crops along timeline
 Figure_4 <- Plotting_SE %>%
   ggplot(aes(x = T, y = Volume)) +
-  geom_point(aes(colour = "Volume")) + ylab(expression(paste("Volume (",mu,"L)"))) + xlab("Time") +
+  geom_point(aes(colour = "Volume")) + ylab(expression(bold(paste("Volume (",mu,"L)")))) + xlab("Time") +
   geom_line(linetype="dashed", size = 0.25, aes(colour = "Volume")) + 
   geom_errorbar(aes(ymax = Volume + volume_se, ymin = Volume - volume_se), width = 0.1, size = 0.25) +
   scale_x_continuous(labels = c("10:30", "16:30", "22:30", "04:30"))
 
 # Plot concentration of standing crops along timeline
 Figure_4 <- Figure_4 + 
-  geom_point(aes(x = T, y = Concentration, colour = "Concentration"), shape=1) +
+  geom_point(aes(x = T, y = Concentration, colour = "Concentration")) +
   geom_line(aes(x = T, y = Concentration, colour = "Concentration"), size = 0.25) +
   geom_errorbar(aes(ymax = Concentration + concentration_se, ymin = Concentration - concentration_se), width = 0.1, size = 0.25) +
   scale_y_continuous(sec.axis = dup_axis(name = "Concentration (%)"))
 
 # Adding grouping by Tukey Test
 Figure_4 <- Figure_4 + 
-  annotate("text", x = 1, y = 108, label = "a", size = 3, family= 'Times') +
-  annotate("text", x = c(2,3,4), y = c(41,49,30), label = "b", size = 3, family= 'Times') + 
-  theme(panel.background = element_blank(), text=element_text(family = 'Times'),
-        axis.text=element_text(size=7), axis.title=element_text(size=10,face="bold"),
+  annotate("text", x = 1, y = 108, label = "a", size = 3, family= 'sans') +
+  annotate("text", x = c(2,3,4), y = c(41,49,30), label = "b", size = 3, family= 'sans') + 
+  theme(panel.background = element_blank(), text=element_text(family = 'sans'),
+        axis.text=element_text(size=7), axis.title=element_text(size=10, face="bold"),
         axis.line.x.bottom = element_line(color="black", size = 0.25),
         axis.line.y.left = element_line(color="black", size = 0.25),
         axis.line.y.right = element_line(color="black", size = 0.25),
         legend.position = c(0.8, 0.8), legend.key=element_rect(fill=NA)) +
-  scale_colour_manual(name='', values=c('Volume'='grey', 'Concentration'='black'))
+  scale_colour_manual(name='', values=c('Volume'='black', 'Concentration'='grey'))
 
 ggsave("Figure4.pdf", dpi = 300, height = 8.4, width =12.7, units = "cm")  
  
