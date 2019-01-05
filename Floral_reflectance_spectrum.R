@@ -14,7 +14,7 @@ Figure_5 <- Reflectance %>%
 
 # Adjust figure 
 Figure_5 <- Figure_5 +
-  theme(panel.background = element_blank(), text=element_text(family = 'Times'),
+  theme(panel.background = element_blank(), text=element_text(family = 'sans'),
       axis.text=element_text(size=7), axis.title=element_text(size=10,face="bold"),
       axis.line.x.bottom = element_line(color="black", size = 0.25),
       axis.line.y.left = element_line(color="black", size = 0.25),
